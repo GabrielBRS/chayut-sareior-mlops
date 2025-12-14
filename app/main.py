@@ -42,7 +42,7 @@ ml_artifacts = {
     "v2_scaler": None
 }
 
-MODEL_DIR = "models"  # Ajuste conforme o caminho real
+MODEL_DIR = "models_store"  # Ajuste conforme o caminho real
 
 
 @asynccontextmanager
