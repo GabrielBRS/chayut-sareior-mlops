@@ -2,6 +2,7 @@
 from fastapi import APIRouter, HTTPException
 from app.schemas.health import IrisInput, IrisPrediction
 from app.services.predictors.torch_predictor import HealthPredictor
+from app.services.model_loader import ModelLoader
 
 router = APIRouter()
 
@@ -29,3 +30,12 @@ def predict_iris_species(data: IrisInput):
         raise HTTPException(status_code=503, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro interno: {str(e)}")
+
+@router.get("/healthcheck")
+def healthcheck():
+    loader = ModelLoader.get_instance()
+    return {
+        "status": "online",
+        "system": "Ortzion AI",
+        "models_active": list(loader.models.keys())
+    }
